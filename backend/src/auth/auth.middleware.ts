@@ -9,12 +9,12 @@ export class AuthMiddleware implements NestMiddleware {
   ) {}
 
   public use (req: Request, res: Response, next: NextFunction): void {
-    // const { TOKEN: token } = req.cookies
+    const { TOKEN: token } = req.cookies
 
-    // if (token !== undefined) {
-    //   const userId = this.authService.verifyToken(token)
-    //   res.locals.userId = userId
-    // }
+    if (token !== undefined) {
+      const userId = this.authService.verifyToken(token)
+      res.locals.userId = userId
+    }
 
     next()
   }
