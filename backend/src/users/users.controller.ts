@@ -1,6 +1,5 @@
 import { Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Res, UseGuards } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { User } from './entities/user.entity'
 import { CreateUserDto } from './dto/CreateUserDto'
 import { UpdateUserDto } from './dto/UpdateUserDto'
 import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
@@ -64,5 +63,23 @@ export class UsersController {
   public async findMyUser(@Res({ passthrough: true }) res: Response) {
     const userId = res.locals.userId
     return await this.findUser(userId)
+  }
+
+  @Patch(':userId')
+  public async updateUser(@Param('userId') userId: number, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findUser(userId)
+
+    if (user === undefined) {
+      throw new NotFoundException({
+        success: false,
+        message: 'User not found.'
+      })
+    }
+
+    await this.usersService.updateUser(userId, updateUserDto)
+
+    return {
+      success: true
+    }
   }
 }
