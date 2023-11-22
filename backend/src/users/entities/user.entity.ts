@@ -64,7 +64,7 @@ export class User {
 
   @CreateDateColumn({
     name: 'createdat',
-    type: 'timestamp',
+    type: 'timestamp'
   })
   @IsDate()
   @ApiProperty()

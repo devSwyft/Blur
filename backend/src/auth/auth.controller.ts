@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { UsersService } from 'src/users/users.service'
 import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { AuthGuard } from './auth.guard'

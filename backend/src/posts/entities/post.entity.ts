@@ -1,6 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsPositive, IsString, Length, MaxLength } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ApiProperty } from "@nestjs/swagger"
+import { IsDate, IsInt, IsPositive, IsString, Length, MaxLength } from "class-validator"
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity({
   name: 'posts'
@@ -26,4 +26,17 @@ export class Post {
   @IsString()
   @ApiProperty()
   public readonly content: string
+
+  @Column()
+  @IsString()
+  @ApiProperty()
+  public readonly likes: string
+
+  @CreateDateColumn({
+    name: 'createat',
+    type: 'timestamp'
+  })
+  @IsDate()
+  @ApiProperty()
+  public readonly createdAt: Date
 }

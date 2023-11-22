@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Res, UseGuards } from '@nestjs/common'
+import { Body, ConflictException, Controller, Get, NotFoundException, Param, Patch, Post, Res, UseGuards } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/CreateUserDto'
 import { UpdateUserDto } from './dto/UpdateUserDto'
@@ -9,9 +9,9 @@ import { Response } from 'express'
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(
+  constructor (
     private usersService: UsersService
-  ) { }
+  ) {}
 
   @Post()
   public async createUser(@Body() createUserDto: CreateUserDto) {
