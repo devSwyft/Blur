@@ -11,9 +11,9 @@ export class PostsService {
     private readonly posts: Repository<Post>
   ) {}
 
-  public async createPost(createPostDto: CreatePostDto): Promise<void> {
+  public async createPost(userId: number, createPostDto: CreatePostDto): Promise<void> {
     await this.posts.insert({
-      author: createPostDto.author,
+      userId,
       content: createPostDto.content,
       likes: '[]'
     })

@@ -1,6 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsDate, IsHexadecimal, IsInt, IsOptional, IsPositive, IsString, Length, MaxLength } from "class-validator";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsDate, IsHexadecimal, IsInt, IsOptional, IsPositive, IsString, Length, MaxLength } from 'class-validator'
+import { Post } from 'src/posts/entities/post.entity'
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({
   name: 'users'
@@ -8,7 +9,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeor
 export class User {
   @PrimaryGeneratedColumn('increment', {
     type: 'int',
-    unsigned: true,
+    unsigned: true
   })
   @IsInt()
   @IsPositive()
@@ -40,14 +41,14 @@ export class User {
   public readonly bio?: string
 
   @Column()
-  @IsInt()
+  @IsString()
   @ApiProperty()
-  public readonly follower: number
+  public readonly follower: string
 
   @Column()
-  @IsInt()
+  @IsString()
   @ApiProperty()
-  public readonly following: number
+  public readonly following: string
 
   @Column()
   @IsString()
@@ -69,4 +70,12 @@ export class User {
   @IsDate()
   @ApiProperty()
   public readonly createdAt: Date
+
+  @OneToMany(() => Post, (p) => p.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    nullable: false
+  })
+  @ApiProperty()
+  public readonly posts: Post[]
 }

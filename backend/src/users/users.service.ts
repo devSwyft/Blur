@@ -21,8 +21,8 @@ export class UsersService {
     await this.users.insert({
       login: createUserDto.login,
       bio: createUserDto.bio,
-      follower: 0,
-      following: 0,
+      follower: '[]',
+      following: '[]',
       avatar: 'default',
       password,
       salt

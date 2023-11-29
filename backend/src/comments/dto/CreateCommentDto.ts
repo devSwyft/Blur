@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, Length, MaxLength } from "class-validator";
+import { IsString, MaxLength } from "class-validator";
 
-export class CreatePostDto {
+export class CreateCommentDto {
   @MaxLength(100)
   @IsString()
   @ApiProperty()

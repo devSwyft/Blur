@@ -3,7 +3,9 @@ FROM node:alpine
 COPY . /app
 WORKDIR /app
 
-RUN npm i
-RUN npm run build
+RUN npm i -gf yarn
+RUN yarn
 
-CMD npm run start:prod
+RUN yarn build
+
+CMD yarn start:prod

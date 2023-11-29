@@ -3,7 +3,7 @@ import { type Response } from 'express'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  public canActivate (context: ExecutionContext): boolean {
+  public canActivate(context: ExecutionContext): boolean {
     const res = context.switchToHttp().getResponse<Response>()
 
     if (res.locals.userId === undefined) {

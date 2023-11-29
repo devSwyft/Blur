@@ -1,10 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthMiddleware } from 'src/auth/auth.middleware';
-import { AuthModule } from 'src/auth/auth.module';
-import { PostsModule } from 'src/posts/posts.module';
-import { UsersModule } from 'src/users/users.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { AuthMiddleware } from 'src/auth/auth.middleware'
+import { AuthModule } from 'src/auth/auth.module'
+import { CommentsModule } from 'src/comments/comments.module'
+import { PostsModule } from 'src/posts/posts.module'
+import { UsersModule } from 'src/users/users.module'
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { UsersModule } from 'src/users/users.module';
         host: configService.get('DATABASE_HOST', 'db'),
         port: configService.get('DATABASE_PORT', 3306),
         username: configService.get('DATABASE_USERNAME', 'blur'),
-        password: configService.get('DATABASE_PASSWORD', 'blurpw'),
+        password: configService.get('DATABASE_PASSWORD', 'blurpassword'),
         database: configService.get('DATABASE_SCHEMA', 'blur'),
         synchronize: configService.get('DATABASE_SYNC', true),
         autoLoadEntities: true
@@ -25,7 +26,8 @@ import { UsersModule } from 'src/users/users.module';
     }),
     UsersModule,
     PostsModule,
-    AuthModule,
+    CommentsModule,
+    AuthModule
   ],
 })
 export class AppModule implements NestModule {

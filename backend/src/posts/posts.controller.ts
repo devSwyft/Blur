@@ -1,11 +1,11 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, NotFoundException, Param, Post, Res, UseGuards } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { ApiTags } from '@nestjs/swagger'
 import { CreatePostDto } from './dto/CreatePostDto'
 import { AuthGuard } from 'src/auth/auth.guard'
+import { Response } from 'express'
 
 @ApiTags('posts')
-@UseGuards(AuthGuard)
 @Controller('posts')
 export class PostsController {
   constructor (
@@ -13,8 +13,10 @@ export class PostsController {
   ) {}
 
   @Post()
-  public async createPost(@Body() createPostDto: CreatePostDto) {
-    await this.postsService.createPost(createPostDto)
+  @UseGuards(AuthGuard)
+  public async createPost(@Res({ passthrough: true }) res: Response, @Body() createPostDto: CreatePostDto) {
+    const userId = res.locals.userId
+    await this.postsService.createPost(userId, createPostDto)
 
     return {
       success: true
